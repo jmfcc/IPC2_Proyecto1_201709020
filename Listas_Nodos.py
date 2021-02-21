@@ -131,3 +131,174 @@ class ListaSimpleCircular():
             else:
                 aux = aux.getSiguiente()
         return txt
+
+
+class NodoPrincipal():
+
+    def __init__(self, nombre, filas, columnas, matriz):
+        self.nombre = nombre
+        self.filas = filas
+        self.columnas = columnas
+        self.grupos = 0
+        self.matriz = matriz
+        self.matrizRedu = None
+        self.siguiente = None
+
+    def setNombre(self, nombre):
+        self.nombre = nombre
+
+    def setFilas(self, filas):
+        self.filas = filas
+
+    def setColumnas(self, columnas):
+        self.columnas = columnas
+
+    def setGrupos(self, grupos):
+        self.grupos = grupos
+
+    def setMatriz(self, matriz):
+        self.matriz = matriz
+
+    def setMatrizRedu(self, matrizRedu):
+        self.matrizRedu = matrizRedu
+
+    def setSiguiente(self, siguiente):
+        self.siguiente = siguiente
+
+    def getNombre(self):
+        return self.nombre
+
+    def getFilas(self):
+        return self.filas
+
+    def getColumnas(self):
+        return self.columnas
+
+    def getGrupos(self):
+        return self.grupos
+
+    def getMatriz(self):
+        return self.matriz
+
+    def getMatrizRedu(self):
+        return self.matrizRedu
+
+    def getSiguiente(self):
+        return self.siguiente
+
+    def getInfo(self):
+        if self.matrizRedu == None:
+            info = "Nombre: " + self.nombre + "\nFilas: " +  str(self.filas) + "\nColumnas: " + str(self.columnas) + "\nGrupos: " + str(self.grupos) + "\nMatriz Original:\n" + self.matriz.dameMatrizEnFormato() + "\nMatriz Reducida:\n"
+        else:
+            info = "Nombre: " + self.nombre + "\nFilas: " +  str(self.filas) + "\nColumnas: " + str(self.columnas) + "\nGrupos: " + str(self.grupos) + "\nMatriz Original:\n" + self.matriz.dameMatrizEnFormato() + "\nMatriz Reducida:\n" + self.matrizRedu.dameMatrizEnFormato()
+        return info
+
+class ListaPrincipal():
+
+    def __init__(self):
+        self.inicio = None
+        self.procesado = False
+
+    def yaProcesado(self):
+        self.procesado = True
+
+    def estaProcesado(self):
+        return self.procesado
+
+    def estaVacia(self):
+        return (self.inicio == None)
+
+    def agregaInicio(self, nombre, filas, columnas, matriz):
+        if self.estaVacia():
+            self.inicio = NodoPrincipal(nombre, filas, columnas, matriz)
+            self.inicio.setSiguiente(self.inicio)
+        else:
+            aux = self.inicio
+            tmp = NodoPrincipal(nombre, filas, columnas, matriz)
+            while True:
+                if aux.getSiguiente() == self.inicio:
+                    break
+                else:
+                    aux = aux.getSiguiente()
+            tmp.setSiguiente(self.inicio)
+            self.inicio = tmp
+            aux.setSiguiente(self.inicio)
+
+    def agregaFinal(self, nombre, filas, columnas, matriz):
+        if self.estaVacia():
+            self.inicio = NodoPrincipal(nombre, filas, columnas, matriz)
+            self.inicio.setSiguiente(self.inicio)
+        else:
+            tmp = NodoPrincipal(nombre, filas, columnas, matriz)
+            aux = self.inicio
+            while True:
+                if aux.getSiguiente() == self.inicio:
+                    break
+                else:
+                    aux = aux.getSiguiente()
+            aux.setSiguiente(tmp)
+            tmp.setSiguiente(self.inicio)
+
+    def existeNombre(self, nombre):
+        aux = self.inicio
+        while True:
+            if aux.getNombre() == nombre:
+                return True
+            if aux.getSiguiente() == self.inicio:
+                break
+            else:
+                aux = aux.getSiguiente()
+        return False
+
+    def dameNombres(self):
+        aux = self.inicio
+        listaNombres = []
+        while True:
+            listaNombres.append(aux.getNombre())
+            if aux.getSiguiente() == self.inicio:
+                break
+            else:
+                aux = aux.getSiguiente()
+        return listaNombres
+
+    def dameNodo(self,nombre):
+        aux = self.inicio
+        while True:
+            if aux.getNombre() == nombre:
+                return aux
+            if aux.getSiguiente() == self.inicio:
+                break
+            else:
+                aux = aux.getSiguiente()
+        return None
+
+    def getInicio(self):
+        return self.inicio
+
+    def muestraLista(self):
+        aux = self.inicio
+        while True:
+            i= aux.getInfo()
+            print(" ________________________________________")
+            print(i)
+            if aux.getSiguiente() == self.inicio:
+                break
+            else:
+                aux = aux.getSiguiente()
+
+# listaPrueba = ListaSimpleCircular()
+# listaPrueba.generaListaDeDimension(3,4)
+# listaPrueba.reemplazaDatos(1,1,1)
+# listaPrueba.reemplazaDatos(3,2,10)
+# listaPrueba.reemplazaDatos(3,3,11)
+# listaPrueba.reemplazaDatos(1,3,3)
+# listaPrueba.reemplazaDatos(2,4,5)
+# listaPrueba.reemplazaDatos(2,1,8)
+# listaPrueba.reemplazaDatos(2,2,7)
+# listaPrueba.reemplazaDatos(1,2,2)
+# listaPrueba.reemplazaDatos(2,3,6)
+# listaPrueba.reemplazaDatos(3,1,9)
+# listaPrueba.reemplazaDatos(1,4,4)
+# listaPrueba.reemplazaDatos(3,4,12)
+# print(listaPrueba.dameMatrizEnFormato())
+# print(listaPrueba.evaluaLista())
