@@ -1,3 +1,82 @@
+class NodoGrupo():
+    
+    def __init__(self, grupo, fila):
+        self.grupo = grupo
+        self.fila = fila
+        self.siguiente = None
+    
+    def getFila(self):
+        return self.fila
+
+    def getGrupo(self):
+        return self.grupo
+
+    def getSiguiente(self):
+        return self.siguiente
+
+    def setFila(self, fila):
+        self.fila = fila
+    
+    def setGrupo(self, grupo):
+        self.grupo = grupo
+
+    def setSiguiente(self, siguiente):
+        self.siguiente = siguiente
+
+class ListaGrupo():
+
+    def __init__(self):
+        self.inicio = None
+    
+    def getInicio(self):
+        return self.inicio
+    
+    def estaVacia(self):
+        return (self.inicio == None)
+
+    def agregaInicio(self, grupo, filas):
+        if self.estaVacia():
+            self.inicio = NodoGrupo(grupo, filas)
+            self.inicio.setSiguiente(self.inicio)
+        else:
+            aux = self.inicio
+            tmp = NodoGrupo(grupo, filas)
+            while True:
+                if aux.getSiguiente() == self.inicio:
+                    break
+                else:
+                    aux = aux.getSiguiente()
+            tmp.setSiguiente(self.inicio)
+            self.inicio = tmp
+            aux.setSiguiente(self.inicio)
+
+    def agregaFinal(self, grupo, filas):
+        if self.estaVacia():
+            self.inicio = NodoGrupo(grupo, filas)
+            self.inicio.setSiguiente(self.inicio)
+        else:
+            tmp = NodoGrupo(grupo, filas)
+            aux = self.inicio
+            while True:
+                if aux.getSiguiente() == self.inicio:
+                    break
+                else:
+                    aux = aux.getSiguiente()
+            aux.setSiguiente(tmp)
+            tmp.setSiguiente(self.inicio)
+
+    def buscaEnGrupo(self, grupo, fila):
+        aux = self.inicio
+        while True:
+            if aux.getGrupo() == grupo and aux.getFila() == fila:
+                return True
+            if aux.getSiguiente() == self.inicio:
+                break
+            else:
+                aux = aux.getSiguiente()
+        return False
+
+
 class Nodo():
 
     def __init__(self, fila, columna, valor):
@@ -139,7 +218,7 @@ class NodoPrincipal():
         self.nombre = nombre
         self.filas = filas
         self.columnas = columnas
-        self.grupos = 0
+        self.grupos = None
         self.matriz = matriz
         self.matrizRedu = None
         self.siguiente = None
