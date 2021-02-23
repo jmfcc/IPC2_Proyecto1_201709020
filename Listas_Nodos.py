@@ -27,10 +27,17 @@ class ListaGrupo():
 
     def __init__(self):
         self.inicio = None
+        self.gruposTot = 0
     
     def getInicio(self):
         return self.inicio
     
+    def getGruposTot(self):
+        return self.gruposTot
+
+    def setGruposTot(self, grTot):
+        self.gruposTot = grTot
+
     def estaVacia(self):
         return (self.inicio == None)
 
@@ -65,16 +72,30 @@ class ListaGrupo():
             aux.setSiguiente(tmp)
             tmp.setSiguiente(self.inicio)
 
-    def buscaEnGrupo(self, grupo, fila):
+    def buscaEnGrupo(self, fila):
+        if self.estaVacia():
+            return False
+        else:
+            aux = self.inicio
+            while True:
+                if aux.getFila() == fila:
+                    return True
+                if aux.getSiguiente() == self.inicio:
+                    break
+                else:
+                    aux = aux.getSiguiente()
+            return False
+
+    def getInfo(self):
+        info = "GrupTot: " + str(self.getGruposTot()) + "\n\n"
         aux = self.inicio
         while True:
-            if aux.getGrupo() == grupo and aux.getFila() == fila:
-                return True
+            info = info + "Fila: " + str(aux.getFila()) + "\nGrupo:" + str(aux.getGrupo()) + "\n\n"
             if aux.getSiguiente() == self.inicio:
                 break
             else:
                 aux = aux.getSiguiente()
-        return False
+        return info
 
 
 class Nodo():
