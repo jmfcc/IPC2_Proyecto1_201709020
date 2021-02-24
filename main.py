@@ -20,7 +20,7 @@ def main():
                 manejador.cargarArchivo()
             elif opcion == "2":
                 print("\n")
-                #manejador.procesarArchivo()
+                manejador.procesarArchivo()
             elif opcion == "3":
                 print("\n")
                 #manejador.escribeSalida()
