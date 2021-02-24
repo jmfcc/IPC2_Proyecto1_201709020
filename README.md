@@ -8,4 +8,8 @@ Implementaci처n TDA (listas de enlaces simples circulares), soluci처n a reducci�
 * Curso: Introducci처n a la Programaci처n y Computaci처n 2
 
 ## Contenido
-Este proyecto cuenta con 1 tag: **v.0.1** que abarca las definiciones de TDA y el lector xml
+Este proyecto cuenta con 2 tags: 
+
+**v.0.1** que abarca las definiciones de TDA y el lector xml
+
+**v.0.2** que abarca el m처dulo de procesamiento de las matrices
