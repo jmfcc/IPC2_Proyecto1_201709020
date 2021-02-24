@@ -3,7 +3,7 @@ from os import path
 from time import sleep
 from LectorXML import leerxml
 from Listas_Nodos import ListaPrincipal
-#from procesadorMatriz import procesaMatriz
+from procesadorMatriz import procesaMatriz
 #from GenerarXML import generaResultado
 #from generarGrafo import grafo
 
@@ -41,3 +41,24 @@ def cargarArchivo():
         print(" >>> Debe ingresar una ruta!!!")
     
     stop = input(" >>> Presione ENTER para continuar...")
+
+#Crear lista temporal de NodoMatriz para Matriz binaria
+def procesarArchivo():
+    if listaPrueba.estaVacia():
+        print(" >>> Error: No hay registros en memoria")
+    else:
+        aux = listaPrueba.getInicio()
+        while True:
+            print()
+            print(" >>> PROCESANDO MATRIZ " + aux.getNombre() + "...")
+            #procesaMatriz(aux.getFilas(), aux.getColumnas(), aux.getMatriz()) #listaMatrizPatron
+            matrizRedu, grupos = procesaMatriz(aux.getFilas(), aux.getColumnas(), aux.getMatriz()) #listaMatrizPatron
+            aux.setMatrizRedu(matrizRedu)
+            aux.setGrupos(grupos)
+            if aux.getSiguiente() == listaPrueba.getInicio():
+                break
+            else:
+                aux = aux.getSiguiente()
+        print()
+        #listaPrueba.muestraLista()
+        listaPrueba.yaProcesado()
