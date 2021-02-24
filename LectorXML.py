@@ -16,44 +16,45 @@ def leerxml(ruta, nArchivo):
             # Validar nombre
             if validaNombre(nombre):
                 print(" >>> Error: Se encontró una matriz con el nombre " + nombre)
-                break
-            try:
-                n = int(matriz.getAttribute("n"))
-                m = int(matriz.getAttribute("m"))
-            except:
-                print(" >>> Error: Se ha detectado un valor no numérico")
-                break
-            
-            for datos in matriz.getElementsByTagName("dato"):
+                #break
+            else:
                 try:
-                    x = int(datos.getAttribute("x"))
-                    y = int(datos.getAttribute("y"))
-                    attr = int(datos.firstChild.data)
+                    n = int(matriz.getAttribute("n"))
+                    m = int(matriz.getAttribute("m"))
+                    
+                    for datos in matriz.getElementsByTagName("dato"):
+                        try:
+                            x = int(datos.getAttribute("x"))
+                            y = int(datos.getAttribute("y"))
+                            attr = int(datos.firstChild.data)
+                        except:
+                            print(" >>> Error: Se ha detectado un valor no numérico para la matriz " + nombre)
+                            taBien = False
+                            break
+                        if x > n and y > m:
+                            print(" >>> Error: Se ha detectado un indice fuera de rango para la matriz " + nombre)
+                            taBien = False
+                            break               
+                    
+                    if taBien:
+                        listaTemporal = ListaSimpleCircular()
+                        listaTemporal.generaListaDeDimension(n,m)
+                        for datos in matriz.getElementsByTagName("dato"):
+                            try:
+                                x = int(datos.getAttribute("x"))
+                                y = int(datos.getAttribute("y"))
+                                attr = int(datos.firstChild.data)
+                                listaTemporal.reemplazaDatos(x,y,attr)
+                            except:
+                                print(" >>> Error: Se detectaron problemas al crear la matriz")
+                                taBien = False
+                                break
+                        if listaTemporal.evaluaLista():
+                            #print(listaTemporal.dameMatrizEnFormato())
+                            manejador.agregaEnLista(nombre, n, m, listaTemporal)
                 except:
-                    print(" >>> Error: Se ha detectado un valor no numérico para la matriz " + nombre)
-                    taBien = False
-                    break
-                if x > n and y > m:
-                    print(" >>> Error: Se ha detectado un indice fuera de rango para la matriz " + nombre)
-                    taBien = False
-                    break               
-            
-            if taBien:
-                listaTemporal = ListaSimpleCircular()
-                listaTemporal.generaListaDeDimension(n,m)
-                for datos in matriz.getElementsByTagName("dato"):
-                    try:
-                        x = int(datos.getAttribute("x"))
-                        y = int(datos.getAttribute("y"))
-                        attr = int(datos.firstChild.data)
-                        listaTemporal.reemplazaDatos(x,y,attr)
-                    except:
-                        print(" >>> Error: Se detectaron problemas al crear la matriz")
-                        taBien = False
-                        break
-                if listaTemporal.evaluaLista():
-                    #print(listaTemporal.dameMatrizEnFormato())
-                    manejador.agregaEnLista(nombre, n, m, listaTemporal)
+                    print(" >>> Error: Se ha detectado un valor no numérico en el atributo tamaño")
+                    #break
 
     time.sleep(1)
 
