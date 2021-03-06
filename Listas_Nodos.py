@@ -350,16 +350,14 @@ class ListaPrincipal():
                 aux = aux.getSiguiente()
         return False
 
-    def dameNombres(self):
+    def muestraNombres(self):
         aux = self.inicio
-        listaNombres = []
         while True:
-            listaNombres.append(aux.getNombre())
+            print("\t-",aux.getNombre())
             if aux.getSiguiente() == self.inicio:
                 break
             else:
                 aux = aux.getSiguiente()
-        return listaNombres
 
     def dameNodo(self,nombre):
         aux = self.inicio
