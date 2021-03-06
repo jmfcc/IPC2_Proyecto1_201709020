@@ -26,10 +26,10 @@ def main():
                 manejador.escribeSalida()
             elif opcion == "4":
                 print()
-                #manejador.datosEstudiante()
+                manejador.datosEstudiante()
             elif opcion == "5":
                 print()
-                #manejador.generaGrafoMatriz()
+                manejador.generaGrafoMatriz()
             elif opcion == "6":
                 print("\n >>> Saliendo del programa...")
                 break
