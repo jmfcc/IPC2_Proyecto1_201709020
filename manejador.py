@@ -1,11 +1,10 @@
-from os import linesep
 from os import path
 from time import sleep
 from LectorXML import leerxml
 from Listas_Nodos import ListaPrincipal
 from procesadorMatriz import procesaMatriz
 from generarXML import generaResultado
-#from generarGrafo import grafo
+from generarGrafo import grafo
 
 listaPrueba = ListaPrincipal()
 
@@ -30,8 +29,11 @@ def cargarArchivo():
             ph, fh = path.split(ruta)
             nombre, extension = path.splitext(fh)
             if extension == ".xml":
-                leerxml(ruta, nombre+extension)
-                print(" >>> Lectura de archivo completa\n")
+                try:
+                    leerxml(ruta, nombre+extension)
+                    print(" >>> Lectura de archivo completa\n")
+                except:
+                    print("\n >>> Error: La lectura no se completo correctamente, verifique su archivo de entrada\n")
             else:
                 print(" >>> El archivo no es de extensión XML")
         else:
@@ -102,3 +104,32 @@ def escribeSalida():
             print(" >>> Error: No hay registros en memoria")
         else:
             print(" >>> Aviso: Las matrices no han sido procesadas")
+
+def generaGrafoMatriz():
+    global listaPrueba
+    if listaPrueba.estaVacia():
+        print(" >>> Error: No hay registros en memoria")
+    else:
+        print(" _______________________________________________________________________________")
+        print(" _______________________________________________________________________________")
+        print()
+        listaPrueba.muestraNombres()
+        seleccion = input(" >>> Ingresa el nombre de la matriz para generar su grafo: ")
+        if seleccion:
+            if listaPrueba.existeNombre(seleccion):
+                nodoMatriz = listaPrueba.dameNodo(seleccion)
+                grafo(nodoMatriz.getNombre(), nodoMatriz.getFilas(), nodoMatriz.getColumnas(), nodoMatriz.getMatriz())
+                print(nodoMatriz.getMatriz().dameMatrizEnFormato())
+            else:
+                print(" >>> Selección inválida")
+        else:
+            print(" >>> Aviso: Debes elegir una opción")
+
+def datosEstudiante():
+    print("Jaime Efraín Chiroy Chavez")
+    print("201709020")
+    print("Introducción a la Programación y Computación 2 Sección D")
+    print("Ingeniería en Ciencias y Sistemas")
+    print("4to. Semestre")
+
+    stop = input("\n >>> Presione ENTER para continuar...")
