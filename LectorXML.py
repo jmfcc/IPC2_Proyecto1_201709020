@@ -21,8 +21,9 @@ def leerxml(ruta, nArchivo):
                 try:
                     n = int(matriz.getAttribute("n"))
                     m = int(matriz.getAttribute("m"))
-                    
+                    #print()
                     for datos in matriz.getElementsByTagName("dato"):
+                        #print(datos.getAttribute("x"))
                         try:
                             x = int(datos.getAttribute("x"))
                             y = int(datos.getAttribute("y"))
@@ -31,7 +32,7 @@ def leerxml(ruta, nArchivo):
                             print(" >>> Error: Se ha detectado un valor no numérico para la matriz " + nombre)
                             taBien = False
                             break
-                        if x > n and y > m:
+                        if x > n or y > m:
                             print(" >>> Error: Se ha detectado un indice fuera de rango para la matriz " + nombre)
                             taBien = False
                             break               
@@ -52,6 +53,9 @@ def leerxml(ruta, nArchivo):
                         if listaTemporal.evaluaLista():
                             #print(listaTemporal.dameMatrizEnFormato())
                             manejador.agregaEnLista(nombre, n, m, listaTemporal)
+                            print(" >>> Información: Se a almacenado la matriz", nombre)
+                        else:
+                            print(" >>> Error: Se ha detectado un valor faltante para la matriz", nombre)
                 except:
                     print(" >>> Error: Se ha detectado un valor no numérico en el atributo tamaño")
                     #break
