@@ -23,7 +23,7 @@ def main():
                 manejador.procesarArchivo()
             elif opcion == "3":
                 print("\n")
-                #manejador.escribeSalida()
+                manejador.escribeSalida()
             elif opcion == "4":
                 print()
                 #manejador.datosEstudiante()

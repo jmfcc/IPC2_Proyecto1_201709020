@@ -31,12 +31,12 @@ def analizaPatrones(filas, columnas, matriz, mapaPatron):
         if not groupsTemps.buscaEnGrupo(i):
             groupsTemps.agregaFinal(counterGroup, i)
             for j in range(i+1, filas):
-                esigual = True
+                seAlmacena = True
                 for k in range(0, columnas):
                     if mapaPatron.dameDatos(i+1, k+1) != mapaPatron.dameDatos(j+1, k+1):
-                        esigual = False
+                        seAlmacena = False
                         break
-                if esigual:
+                if seAlmacena:
                     groupsTemps.agregaFinal(counterGroup, j)
             groupsTemps.setGruposTot(counterGroup)
             counterGroup += 1
