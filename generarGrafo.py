@@ -11,6 +11,7 @@ def mimetodo(di):
     try:
         time.sleep(2)
         system (di)
+        print(" >>> Grafo generado exitosamente...")
     except:
         print("Error al generar png")
     
