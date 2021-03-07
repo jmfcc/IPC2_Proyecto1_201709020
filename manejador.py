@@ -19,6 +19,7 @@ def agregaEnLista(nombre, fil, cols, matriz):
 def cargarArchivo():
     global listaPrueba
     if not listaPrueba.estaVacia():
+        print(" >>> Los registros anteriores han sido borrados...")
         listaPrueba = ListaPrincipal()
     print(" _______________________________________________________________________________")
     print(" _______________________________________________________________________________")
@@ -80,6 +81,7 @@ def escribeSalida():
                     file = open(ruta, "w+")
                     aux = listaPrueba.getInicio()
                     file.write("<?xml version=\"1.0\" ?>")
+                    file.write("\n<matrices>")
                     while True:
                         formatoXML = generaResultado(aux.getNombre(), aux.getColumnas(), aux.getGrupos(), aux.getMatrizRedu())
                         file.write(formatoXML.replace("<?xml version=\"1.0\" ?>",""))
@@ -87,6 +89,7 @@ def escribeSalida():
                             break
                         else:
                             aux = aux.getSiguiente()
+                    file.write("</matrices>")
                     file. close()
                     #print(" >>> Archivo Cargado -- ", nombre + extension,"\n")
                     print(" >>> Salida generada exitosamente\n")
@@ -119,7 +122,7 @@ def generaGrafoMatriz():
             if listaPrueba.existeNombre(seleccion):
                 nodoMatriz = listaPrueba.dameNodo(seleccion)
                 grafo(nodoMatriz.getNombre(), nodoMatriz.getFilas(), nodoMatriz.getColumnas(), nodoMatriz.getMatriz())
-                print(nodoMatriz.getMatriz().dameMatrizEnFormato())
+                #print(nodoMatriz.getMatriz().dameMatrizEnFormato())
             else:
                 print(" >>> Selección inválida")
         else:
